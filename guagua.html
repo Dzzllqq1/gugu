@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+        canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #gua{
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+<canvas id="gua" width="400" height="300"></canvas>
+<canvas id="text" width="400" height="300"></canvas>
+</body>
+</html>
+<script>
+    var gua = document.querySelector("#gua");
+    var text = document.querySelector("#text");
+
+    var textCtx =text.getContext('2d');
+    textCtx.beginPath();
+    textCtx.fillStyle='red';
+    textCtx.rect(0,0,400,300);
+    textCtx.fill();
+    textCtx.closePath();
+
+    var arr=['谢谢惠顾','谢谢惠顾','谢谢惠顾','谢谢惠顾','谢谢惠顾','50000000元'];
+    var random=Math.floor(Math.random()*arr.length);
+    textCtx.beginPath();
+    textCtx.font='25px 微软雅黑';
+    textCtx.textAlign='center';
+    textCtx.fillStyle='yellow';
+    textCtx.fillText(arr[random],200,150);
+    textCtx.closePath();
+
+    var  guaCtx =gua.getContext('2d');
+    guaCtx.beginPath();
+    guaCtx.fillStyle='#ccc';
+    guaCtx.fillRect(0,0,400,300);
+    guaCtx.fill();
+    guaCtx.closePath();
+
+    gua.addEventListener('mousemove',function (e) {
+        guaCtx.beginPath();
+        guaCtx.globalCompositeOperation='destination-out';
+        guaCtx.arc(e.offsetX,e.offsetY,20,0.2*Math.PI,false);
+        guaCtx.fill();
+        guaCtx.closePath();
+    })
+</script>
